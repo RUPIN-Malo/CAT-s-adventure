@@ -1,0 +1,74 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scene/cat.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprite/back.png" type="Texture" id=2]
+[ext_resource path="res://scene/milk.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scene/poisson2.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scene/décor/herbe/herbe1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scene/arbre.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scene/poisson.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scene/camera.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scene/décor/music.tscn" type="PackedScene" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 613.5, 13 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 19, 311.5 )
+
+[node name="lvl test" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1075.5, 556.5 )
+scale = Vector2( 2.73625, 1.87167 )
+texture = ExtResource( 2 )
+
+[node name="cat" parent="." instance=ExtResource( 1 )]
+position = Vector2( -2, -2 )
+
+[node name="milk" parent="." instance=ExtResource( 3 )]
+position = Vector2( 778, 207 )
+
+[node name="milk2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 682, 89 )
+
+[node name="milk3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 581, 179 )
+
+[node name="milk4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 838, 355 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 555, 0 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 513, 602 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 1056, 277 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -15, 293 )
+shape = SubResource( 2 )
+
+[node name="StaticBody2D2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 287, 279 )
+
+[node name="poisson2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 657, 397 )
+
+[node name="herbe" parent="." instance=ExtResource( 5 )]
+position = Vector2( 435, 476 )
+
+[node name="poisson" parent="." instance=ExtResource( 7 )]
+position = Vector2( 98, 268 )
+
+[node name="Camera" parent="." instance=ExtResource( 8 )]
+position = Vector2( 526, 317 )
+
+[node name="music" parent="." instance=ExtResource( 9 )]

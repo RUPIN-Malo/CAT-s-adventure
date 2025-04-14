@@ -1,0 +1,142 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://sprite/mob/fish2/course dos/4.png" type="Texture" id=1]
+[ext_resource path="res://sprite/mob/fish2/course face/4.png" type="Texture" id=2]
+[ext_resource path="res://sprite/mob/fish2/course dos/3.png" type="Texture" id=3]
+[ext_resource path="res://sprite/mob/fish2/course dos/1.png" type="Texture" id=4]
+[ext_resource path="res://sprite/mob/fish2/course face/3.png" type="Texture" id=5]
+[ext_resource path="res://sprite/mob/fish2/course face/1.png" type="Texture" id=6]
+[ext_resource path="res://sprite/mob/fish2/course face/2.png" type="Texture" id=7]
+[ext_resource path="res://sprite/mob/fish2/course dos/2.png" type="Texture" id=8]
+[ext_resource path="res://sprite/mob/fish2/stand dos/1.png" type="Texture" id=9]
+[ext_resource path="res://sprite/mob/fish2/stand dos/2.png" type="Texture" id=10]
+[ext_resource path="res://sprite/mob/fish2/stand face/1.png" type="Texture" id=11]
+[ext_resource path="res://sprite/mob/fish2/stand face/2.png" type="Texture" id=12]
+[ext_resource path="res://script/area 2D/poisson2hurtbox.gd" type="Script" id=13]
+[ext_resource path="res://script/poisson2.gd" type="Script" id=14]
+[ext_resource path="res://sound/mob/poisson2_attack.wav" type="AudioStream" id=15]
+[ext_resource path="res://sound/mob/enemy_take_damage.wav" type="AudioStream" id=16]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 6 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "course dos"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "course face"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 5 ), ExtResource( 2 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "stand dos"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 9 ), ExtResource( 10 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "stand face"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 11 ), ExtResource( 12 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 166.667, 125 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 190, 135 )
+
+[node name="poisson2" type="KinematicBody2D"]
+scale = Vector2( 0.3, 0.3 )
+script = ExtResource( 14 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 1 )
+"anims/course dos" = SubResource( 2 )
+"anims/course face" = SubResource( 3 )
+"anims/stand dos" = SubResource( 6 )
+"anims/stand face" = SubResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 2
+position = Vector2( 6.66667, -1.66667 )
+shape = SubResource( 4 )
+
+[node name="poisson2hurtbox" type="Area2D" parent="."]
+script = ExtResource( 13 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="poisson2hurtbox"]
+position = Vector2( 6.66667, -1.66666 )
+shape = SubResource( 5 )
+
+[node name="attack_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+volume_db = -10.313
+
+[node name="enemy_take_damage" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+
+[connection signal="area_entered" from="poisson2hurtbox" to="." method="_on_poisson2hurtbox_area_entered"]
